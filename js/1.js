@@ -5,7 +5,7 @@ for (let i = 0;i < lines.length;i++)
 		if (parseInt(lines[i]) + parseInt(lines[j]) == 2020)
 			console.log("Result: " + lines[i] + " * " + lines[j] + " = " + (parseInt(lines[i]) * parseInt(lines[j])));
 
-// Seconds task
+// Second task
 const lines = $("pre").innerHTML.split('\n');
 for (let i = 0;i < lines.length;i++)
 	for(let j = i + 1; j < lines.length;j++)
