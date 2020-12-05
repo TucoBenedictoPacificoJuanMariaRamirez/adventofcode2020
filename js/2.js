@@ -8,10 +8,15 @@ const lines = $("pre").innerHTML.split('\n');
 lines.forEach(line => createPolicyPasswordObject(line));
 console.log(policyPasswordObjects);
 
-// Count how many pass the policy
+// Count how many pass the first policy task
 let count = 0;
-policyPasswordObjects.forEach(p => checkPolicy(p));
-console.log("Number of passwords that pass the policy test: " + count);
+policyPasswordObjects.forEach(p => checkPolicyForFirstTask(p));
+console.log("Number of passwords that pass the first policy test: " + count);
+
+// Count how many pass the second policy task
+count = 0;
+policyPasswordObjects.forEach(p => checkPolicyForSecondTask(p));
+console.log("Number of passwords that pass the second policy test: " + count);
 
 function createPolicyPasswordObject(line) {
 	if(line == "" || line === null || line === undefined)
@@ -24,10 +29,18 @@ function createPolicyPasswordObject(line) {
 	policyPasswordObjects.push(policyPasswordObject);
 }
 
-function checkPolicy(obj) {
+function checkPolicyForFirstTask(obj) {
 	const c = obj.password.match(new RegExp(obj.policyLetter, 'g'));
 	if(c === null)
 		return;
 	if(c.length >= obj.minCount && c.length <= obj.maxCount)
 		count++;
+}
+
+function checkPolicyForSecondTask(obj) {
+	if((obj.password[obj.minCount - 1] == obj.policyLetter &&
+	   obj.password[obj.maxCount - 1] != obj.policyLetter) ||
+	   (obj.password[obj.minCount - 1] != obj.policyLetter &&
+	   obj.password[obj.maxCount - 1] == obj.policyLetter))
+	   count++;
 }
